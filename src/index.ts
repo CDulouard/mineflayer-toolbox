@@ -5,9 +5,8 @@ const { mineflayer: mineflayerViewer } = require('prismarine-viewer')
 const pathfinder = require('mineflayer-pathfinder').pathfinder
 import * as move from './move/move'
 import { jump } from './move/move'
-import { blockAtCursor, getVisibleBlocks } from './vision/vision'
 import { Player } from 'mineflayer'
-import { getBlockDistances } from './vision/lidar'
+import { defaultView } from './vision/viewManager'
 
 export const main = async () => {
   const port = 40899
@@ -36,7 +35,7 @@ export const main = async () => {
       // console.log(blockAtCursor(bot))
       // jump(bot)
       // await sleep(1000)
-      console.log(getBlockDistances(bot))
+      console.log(defaultView.getBlockDistances(bot))
       await sleep(1000)
     }
   })

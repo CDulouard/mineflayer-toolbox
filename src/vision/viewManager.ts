@@ -1,5 +1,6 @@
 import { Vec3 } from 'vec3'
-import { getViewDirection } from './utils'
+import { getBlock, getBlockDistance, getViewDirection } from './utils'
+import { Bot } from 'mineflayer'
 
 export const MAX_DISTANCE = 256
 
@@ -69,6 +70,36 @@ export class ViewManager {
       }
     }
     return matrix
+  }
+
+  public blockAtCursor = (bot: Bot | any, maxDistance = 10) => {
+    return bot.blockAtCursor(maxDistance)
+  }
+
+  public getBlockDistances = (bot: Bot | any) => {
+    const headPos = bot.entity.position.offset(0, bot.entity.height, 0)
+    const rayDirectionMatrix = this.rayDirectionMatrixFromPitchYaw(
+      bot.entity.pitch,
+      bot.entity.yaw
+    )
+    return rayDirectionMatrix.map(line =>
+      line.map(direction =>
+        getBlockDistance(headPos, direction, bot.world, MAX_DISTANCE)
+      )
+    )
+  }
+
+  public getVisibleBlocks = (bot: Bot | any) => {
+    const headPos = bot.entity.position.offset(0, bot.entity.height, 0)
+    const rayDirectionMatrix = this.rayDirectionMatrixFromPitchYaw(
+      bot.entity.pitch,
+      bot.entity.yaw
+    )
+    return rayDirectionMatrix.map(line =>
+      line.map(direction =>
+        getBlock(headPos, direction, bot.world, MAX_DISTANCE)
+      )
+    )
   }
 }
 
