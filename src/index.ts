@@ -7,6 +7,7 @@ import * as move from './move/move'
 import { jump } from './move/move'
 import { blockAtCursor, getVisibleBlocks } from './vision/vision'
 import { Player } from 'mineflayer'
+import { getBlockDistances } from './vision/lidar'
 
 export const main = async () => {
   const port = 40899
@@ -35,7 +36,7 @@ export const main = async () => {
       // console.log(blockAtCursor(bot))
       // jump(bot)
       // await sleep(1000)
-      getVisibleBlocks(bot)
+      console.log(getBlockDistances(bot))
       await sleep(1000)
     }
   })

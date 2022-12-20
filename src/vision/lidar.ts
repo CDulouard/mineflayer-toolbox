@@ -1,18 +1,17 @@
 import { Bot } from 'mineflayer'
 import { defaultView } from './viewManager'
-import { getBlock } from './utils'
+import { getBlockDistance } from './utils'
 
-export const blockAtCursor = (bot: Bot | any, maxDistance = 10) => {
-  return bot.blockAtCursor(maxDistance)
-}
-
-export const getVisibleBlocks = (bot: Bot | any, viewManager = defaultView) => {
+export const getBlockDistances = (
+  bot: Bot | any,
+  viewManager = defaultView
+) => {
   const headPos = bot.entity.position.offset(0, bot.entity.height, 0)
   const rayDirectionMatrix = viewManager.rayDirectionMatrixFromPitchYaw(
     bot.entity.pitch,
     bot.entity.yaw
   )
   return rayDirectionMatrix.map(line =>
-    line.map(direction => getBlock(headPos, direction, bot.world))
+    line.map(direction => getBlockDistance(headPos, direction, bot.world))
   )
 }

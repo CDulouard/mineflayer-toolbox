@@ -8,6 +8,21 @@ export const getViewDirection = (pitch: number, yaw: number) => {
   return new Vec3(-sinYaw * cosPitch, sinPitch, -cosYaw * cosPitch)
 }
 
-export const getBlock = (origin: Vec3, direction: Vec3, world: any) => {
-  return world.raycast(origin, direction, 256)
+export const getBlock = (
+  origin: Vec3,
+  direction: Vec3,
+  world: any,
+  maxDistance = 256
+) => {
+  return world.raycast(origin, direction, maxDistance)
+}
+
+export const getBlockDistance = (
+  origin: Vec3,
+  direction: Vec3,
+  world: any,
+  maxDistance = 256
+) => {
+  const block = getBlock(origin, direction, world, maxDistance)
+  return block != null ? origin.distanceTo(block.position) : maxDistance
 }

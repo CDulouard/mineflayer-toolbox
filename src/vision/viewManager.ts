@@ -1,6 +1,8 @@
 import { Vec3 } from 'vec3'
 import { getViewDirection } from './utils'
 
+export const MAX_DISTANCE = 256
+
 export class ViewManager {
   private readonly horizontalAngleRad: number
   private readonly verticalAngleRad: number
@@ -69,3 +71,5 @@ export class ViewManager {
     return matrix
   }
 }
+
+export const defaultView = ViewManager.newViewFromDegrees(90, 30, 90, 30)
