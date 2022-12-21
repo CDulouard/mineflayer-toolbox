@@ -10,6 +10,6 @@ export const getDirectionRadians = (bot: Bot | any) => {
   return direction < 0 ? direction + 2 * Math.PI : direction
 }
 
-export const getDirectionDegree = (bot: Bot | any) => {
+export const getDirectionDegrees = (bot: Bot | any) => {
   return radiansToDegrees(getDirectionRadians(bot))
 }

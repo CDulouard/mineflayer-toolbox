@@ -9,7 +9,7 @@ import { Player } from 'mineflayer'
 import { defaultView } from './vision/viewManager'
 import {
   getAbsolutePosition,
-  getDirectionDegree,
+  getDirectionDegrees,
   getDirectionRadians,
 } from './sensors/position'
 
@@ -41,9 +41,9 @@ export const main = async () => {
       // jump(bot)
       // await sleep(1000)
       // console.log(defaultView.getBlockDistances(bot))
-      console.log(getDirectionDegree(bot))
+      console.log(getDirectionDegrees(bot))
       // rotateToRadians(bot, (bot.entity.yaw + 0.5) % (2 * Math.PI))
-      const direction = getDirectionDegree(bot) - 10
+      const direction = getDirectionDegrees(bot) - 10
       console.log(`rotate to: ${direction}`)
       rotateToDegrees(bot, direction)
       await sleep(1000)

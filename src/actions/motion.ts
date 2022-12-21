@@ -1,5 +1,6 @@
 import { Bot } from 'mineflayer'
 import { degreesToRadians } from '../utils/utils'
+import { getDirectionDegrees, getDirectionRadians } from '../sensors/position'
 
 export const forward = (bot: Bot | any) => {
   stop(bot)
@@ -55,4 +56,12 @@ export const rotateToRadians = (bot: Bot | any, direction: number) => {
 
 export const rotateToDegrees = (bot: Bot | any, direction: number) => {
   rotateToRadians(bot, degreesToRadians(direction))
+}
+
+export const rotateRadians = (bot: Bot | any, angle: number) => {
+  rotateToRadians(bot, getDirectionRadians(bot) + angle)
+}
+
+export const rotateDegrees = (bot: Bot | any, angle: number) => {
+  rotateToDegrees(bot, getDirectionDegrees(bot) + angle)
 }
