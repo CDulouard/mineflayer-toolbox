@@ -1,6 +1,7 @@
 import { Vec3 } from 'vec3'
 import { getBlock, getBlockDistance, getViewDirection } from './utils'
 import { Bot } from 'mineflayer'
+import { degreesToRadians } from '../utils/utils'
 
 export const MAX_DISTANCE = 256
 
@@ -18,8 +19,8 @@ export class ViewManager {
     horizontalResolution: number,
     verticalResolution: number
   ) {
-    const horizontalAngleRad = horizontalAngle * (Math.PI / 180)
-    const verticalAngleRad = verticalAngle * (Math.PI / 180)
+    const horizontalAngleRad = degreesToRadians(horizontalAngle)
+    const verticalAngleRad = degreesToRadians(verticalAngle)
     return new ViewManager(
       horizontalAngleRad,
       verticalAngleRad,

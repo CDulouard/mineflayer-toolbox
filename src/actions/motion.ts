@@ -1,4 +1,5 @@
 import { Bot } from 'mineflayer'
+import { degreesToRadians } from '../utils/utils'
 
 export const forward = (bot: Bot | any) => {
   stop(bot)
@@ -45,4 +46,13 @@ export const stop = (bot: Bot | any) => {
   bot.setControlState('back', false)
   bot.setControlState('left', false)
   bot.setControlState('right', false)
+}
+
+export const rotateToRadians = (bot: Bot | any, direction: number) => {
+  const targetDirection = direction < 0 ? direction + 2 * Math.PI : direction
+  bot.look(targetDirection, bot.entity.pitch, true)
+}
+
+export const rotateToDegrees = (bot: Bot | any, direction: number) => {
+  rotateToRadians(bot, degreesToRadians(direction))
 }

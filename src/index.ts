@@ -1,15 +1,20 @@
-import { sleep } from './utils/utils'
+import { radiansToDegrees, sleep } from './utils/utils'
 
 const mineflayer = require('mineflayer')
 const { mineflayer: mineflayerViewer } = require('prismarine-viewer')
 const pathfinder = require('mineflayer-pathfinder').pathfinder
-import * as move from './move/move'
-import { jump } from './move/move'
+import * as move from './actions/motion'
+import { jump, rotateToDegrees, rotateToRadians } from './actions/motion'
 import { Player } from 'mineflayer'
 import { defaultView } from './vision/viewManager'
+import {
+  getAbsolutePosition,
+  getDirectionDegree,
+  getDirectionRadians,
+} from './sensors/position'
 
 export const main = async () => {
-  const port = 40899
+  const port = 36251
 
   const bot = mineflayer.createBot({
     host: 'localhost', // minecraft server ip
@@ -28,14 +33,19 @@ export const main = async () => {
   bot.once('spawn', async () => {
     mineflayerViewer(bot, { port: 3007, firstPerson: true }) // port is the minecraft server port, if first person is false, you get a bird's-eye view
     while (true) {
-      // move.forward(bot)
+      // actions.forward(bot)
       // jump(bot)
       // await sleep(1000)
-      // move.backward(bot)
+      // actions.backward(bot)
       // console.log(blockAtCursor(bot))
       // jump(bot)
       // await sleep(1000)
-      console.log(defaultView.getBlockDistances(bot))
+      // console.log(defaultView.getBlockDistances(bot))
+      console.log(getDirectionDegree(bot))
+      // rotateToRadians(bot, (bot.entity.yaw + 0.5) % (2 * Math.PI))
+      const direction = getDirectionDegree(bot) - 10
+      console.log(`rotate to: ${direction}`)
+      rotateToDegrees(bot, direction)
       await sleep(1000)
     }
   })
@@ -50,7 +60,7 @@ export const main = async () => {
     bot.lookAt(pos)
   }
 
-  bot.on('physicTick', lookAtNearestPlayer)
+  // bot.on('physicTick', lookAtNearestPlayer)
 
   // Log errors and kick reasons:
   bot.on('kicked', console.log)
